@@ -29,7 +29,7 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends software-properties-common; \
     apt-get install -y --no-install-recommends \
       ca-certificates \
-      curl; \
+      curl \
       gfortran \
       g++ \
       git \
@@ -38,7 +38,7 @@ RUN set -eux; \
       libtool \
       libxrender1 \
       libgomp1 \
-      wget \
+      wget; \
     curl -sSL https://install.python-poetry.org | python3 - ; \
     apt-get purge --auto-remove -y -o APT::AutoRemove::RecommendsImportant=false; \
     apt-get clean -y; \
