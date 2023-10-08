@@ -7,7 +7,7 @@ jobs:
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
-    
+
     steps:
       - checkout
       - setup_remote_docker
@@ -28,7 +28,7 @@ jobs:
           command: docker run -t ldssa/academy-base:3.10 /bin/bash -c "python -c 'import numpy'"
       - run:
           name: Verify that numpy does not link to MKL
-          command: docker run ldssa/academy-base:3.10 python -c "from numpy.distutils import system_info; assert system_info.get_info('mkl') == {}" 
+          command: docker run ldssa/academy-base:3.10 python -c "from numpy.distutils import system_info; assert system_info.get_info('mkl') == {}"
       - run:
           name: Run numpy unit tests
           command: docker run ldssa/academy-base:3.10 /bin/bash -c 'pip install pytest hypothesis; python -c "import numpy; numpy.test()"'

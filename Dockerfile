@@ -1,5 +1,7 @@
 FROM python:3.10.11-bullseye
 
+WORKDIR /
+
 ENV \
     # Python
     PYTHONFAULTHANDLER=1 \
@@ -11,6 +13,8 @@ ENV \
     POETRY_VIRTUALENVS_CREATE=false \
     POETRY_HOME='/usr/local' \
     POETRY_CACHE_DIR='/var/cache/pypoetry'
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN groupadd -r student && \
     useradd -u 1000 -r -m -d /student -g student -s /bin/false student && \

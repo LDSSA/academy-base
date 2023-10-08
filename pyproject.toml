@@ -2,7 +2,11 @@
 name = "academy-base"
 version = "1.0.0"
 description = "Base docker image for all the batch specializations"
-authors = ["Your Name <you@example.com>"]
+authors = [
+    "Hugo Castilho <hugo.castilho@lisbondatascience.org>",
+    "Sam Hopkins <sam.hopkins@lisbondatascience.org>",
+    "Carlos Regis <carlos.regis@lisbondatascience.org>",
+]
 license = "MIT"
 readme = "README.md"
 
@@ -16,6 +20,8 @@ seaborn = "0.12.2"
 category-encoders = "2.6.2"
 ldsagrader = "0.5.7"
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.4.0"
 
 [build-system]
 requires = ["poetry-core"]
