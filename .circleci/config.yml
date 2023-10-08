@@ -13,7 +13,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Login to Docker Hub
-          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+          command: echo "$DOCKER_PASS" | docker login -u $DOCKER_USER --password-stdin
       - run:
           name: Build container
           command: docker build -t ldssa/academy-base:3.10 .
