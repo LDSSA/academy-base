@@ -1,3 +1,3 @@
 # Base Docker Image for SLUs
 
-[![CircleCI](https://circleci.com/gh/ldssa/academy-base/tree/main.svg?style=svg)](https://circleci.com/gh/ldssa/academy-base/?branch=main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/LDSSA/academy-base/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/LDSSA/academy-base/tree/main)
