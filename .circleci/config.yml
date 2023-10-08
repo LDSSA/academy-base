@@ -1,20 +1,37 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
-#    docker:
-#      - image: debian:stretch
-    machine: true
-
+    docker:
+      - image: cimg/python:3.10.11
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    
     steps:
-
       - checkout
-
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-
-      # build the conda version
-#       - run: docker build -t ldssa/conda-base:latest .
-#       - run: docker push ldssa/conda-base:latest
-
-      # build the pip version
-      - run: docker build -t ldssa/pip-base:latest -f Dockerfile-pip .
-      - run: docker push ldssa/pip-base:latest
+      - setup_remote_docker
+      - run:
+          name: Login to Docker Hub
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run:
+          name: Build container
+          command: docker build -t ldssa/academy-base:3.10 .
+      - run:
+          name: Verify build completed
+          command: docker run ldssa/academy-base:3.10 /bin/bash -c "echo BUILDS OK"
+      - run:
+          name: Check that scipy links to OpenBLAS
+          command: docker run ldssa/academy-base:3.10 python -c "from scipy.linalg import _fblas"
+      - run:
+          name: Check that numpy imports from bash shell
+          command: docker run -t ldssa/academy-base:3.10 /bin/bash -c "python -c 'import numpy'"
+      - run:
+          name: Verify that numpy does not link to MKL
+          command: docker run ldssa/academy-base:3.10 python -c "from numpy.distutils import system_info; assert system_info.get_info('mkl') == {}" 
+      - run:
+          name: Run numpy unit tests
+          command: docker run ldssa/academy-base:3.10 /bin/bash -c 'pip install pytest hypothesis; python -c "import numpy; numpy.test()"'
+      - run:
+          name: Push container to Docker Hub
+          command:  docker push ldssa/academy-base:3.10
