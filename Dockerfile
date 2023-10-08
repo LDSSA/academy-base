@@ -41,14 +41,8 @@ RUN groupadd -r student && \
 
 COPY ./poetry.lock ./pyproject.toml ./
 
-RUN poetry install
-
-# COPY requirements-full.txt .
-
-# RUN python -m pip install -U pip setuptools wheel && \
-#     python -m pip install -r requirements-full.txt && \
-#     python -m pip cache purge && \
-#     rm requirements-full.txt
+# Install only the package dependencies
+RUN poetry install --quiet --no-root --no-directory --no-ansi
 
 # Instruct joblib to use disk for temporary files. Joblib defaults to
 # /shm when that directory is present. In the Docker container, /shm is
