@@ -1,20 +1,9 @@
-version: 2
+version: 2.1
 jobs:
   build:
-#    docker:
-#      - image: debian:stretch
     machine: true
-
     steps:
-
       - checkout
-
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
-
-      # build the conda version
-#       - run: docker build -t ldssa/conda-base:latest .
-#       - run: docker push ldssa/conda-base:latest
-
-      # build the pip version
-      - run: docker build -t ldssa/pip-base:latest -f Dockerfile-pip .
-      - run: docker push ldssa/pip-base:latest
+      - run: docker build -t ldssa/academy-base:latest .
+      - run: docker push ldssa/academy-base:latest

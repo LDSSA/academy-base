@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.10-slim-bullseye
 
 RUN groupadd -r student && \
     useradd -u 1000 -r -m -d /student -g student -s /bin/false student && \
